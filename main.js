@@ -76,3 +76,25 @@ if (carrossel && btnNext && !reduzMovimento) {
 
   iniciar();
 }
+
+/* ---------- Menu do celular ---------- */
+const menuBotao = document.querySelector(".nav__toggle");
+const menuLista = document.getElementById("menu");
+
+if (menuBotao && menuLista) {
+  const fechar = () => {
+    menuLista.classList.remove("is-open");
+    menuBotao.setAttribute("aria-expanded", "false");
+    menuBotao.setAttribute("aria-label", "Abrir menu");
+  };
+
+  menuBotao.addEventListener("click", () => {
+    const aberto = menuLista.classList.toggle("is-open");
+    menuBotao.setAttribute("aria-expanded", String(aberto));
+    menuBotao.setAttribute("aria-label", aberto ? "Fechar menu" : "Abrir menu");
+  });
+
+  // fecha o menu ao escolher uma opção ou apertar Esc
+  menuLista.querySelectorAll("a").forEach((link) => link.addEventListener("click", fechar));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") fechar(); });
+}

@@ -608,3 +608,238 @@ img {
   font-size: 14px;
   letter-spacing: 0.08em;
 }
+
+/* ---------- 16. Ajustes finais (celular, menu e cores) ---------- */
+
+/* Cores sem transparência: era isso que deixava o dourado e o logo apagados */
+:root {
+  --black: #050505;
+  --gold-dark: #9a7524;
+}
+
+.nav__toggle {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  /* cabeçalho sólido, para o logo e o nome ficarem nítidos */
+  .header {
+    background: rgba(0, 0, 0, 0.94);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    padding: 0 16px;
+  }
+
+  .nav__brand {
+    gap: 8px;
+    font-size: 22px;
+  }
+
+  .nav__brand img {
+    height: 40px;
+  }
+
+  /* botão de três linhas */
+  .nav__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .nav__toggle span {
+    display: block;
+    height: 2px;
+    background: var(--gold-light);
+    transition: transform 0.25s, opacity 0.2s;
+  }
+
+  .nav__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* menu escondido, abre embaixo do cabeçalho */
+  .nav__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 4px 24px 12px;
+    background: rgba(0, 0, 0, 0.97);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav__menu.is-open {
+    display: flex;
+  }
+
+  .nav__menu a {
+    display: block;
+    padding: 14px 0;
+    font-size: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav__menu li:last-child a {
+    border-bottom: 0;
+  }
+
+  /* banner: ocupa a tela, texto embaixo */
+  .hero {
+    min-height: 100svh;
+    padding: 96px 20px 44px;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+  .hero__banner {
+    object-position: center 20%;   /* 0% = topo da foto, 50% = meio, 100% = parte de baixo */
+  }
+
+  .hero::after {
+    background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.88));
+  }
+
+  .hero__title {
+    margin: 0 0 20px;
+    font-size: 34px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+  }
+}
+
+
+/* ---------- 17. Compatibilidade com aparelhos variados ---------- */
+
+/* nunca deixar a página rolar para o lado */
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-text-size-adjust: 100%;   /* iPhone não aumenta o texto sozinho */
+}
+
+/* alternativa ao "inset", para celulares e navegadores mais antigos */
+.hero__banner,
+.hero::after,
+.banner-strip::after {
+  top: 0;
+  left: 0;
+}
+
+.hero::after,
+.banner-strip::after {
+  right: 0;
+  bottom: 0;
+}
+
+/* telas muito pequenas */
+@media (max-width: 380px) {
+  .nav__brand {
+    font-size: 19px;
+  }
+
+  .nav__brand img {
+    height: 34px;
+  }
+
+  .hero__title {
+    font-size: 30px;
+  }
+
+  .btn {
+    padding: 13px 24px;
+  }
+}
+
+/* telas grandes (TV, monitores ultrawide) */
+@media (min-width: 1600px) {
+  :root {
+    --container: 1320px;
+  }
+}
+
+
+/* ---------- 18. Texto do banner centralizado (computador) ---------- */
+@media (min-width: 761px) {
+  .hero {
+    align-items: center;          /* centraliza na horizontal */
+    justify-content: flex-end;    /* texto no pé da foto, como no celular */
+    padding: 120px 6vw 72px;
+    text-align: center;
+  }
+
+  .hero__content {
+    max-width: 640px;
+  }
+
+  .hero__title {
+    margin: 0 0 24px;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8));   /* sombra para o dourado não apagar sobre a foto */
+  }
+
+  /* camada escura embaixo, em vez de só na esquerda */
+  .hero::after {
+    background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.85));
+  }
+}
+
+
+/* ---------- 19. Sombra atrás do cabeçalho (contraste do logo e do menu) ---------- */
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--header-height) + 56px);   /* desce um pouco além do cabeçalho */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.85) 0%,     /* força da sombra no topo */
+    rgba(0, 0, 0, 0.55) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -1;                  /* fica atrás do logo e do menu */
+  transition: opacity 0.25s;
+}
+
+/* quando a página rola, o cabeçalho já fica escuro e a sombra some */
+.header--solid::before {
+  opacity: 0;
+}
+
+/* leve sombra nas letras */
+.nav__menu a {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+}
+
+.nav__brand span {
+  filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.9));
+}
+
+/* no celular o cabeçalho já tem fundo escuro */
+@media (max-width: 760px) {
+  .header::before {
+    display: none;
+  }
+}

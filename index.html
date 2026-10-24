@@ -7,7 +7,13 @@
   <title>Ateliê Arroteia | Moda festa e casual</title>
   <meta name="description" content="Vestidos de festa e looks casuais feitos sob medida. Ateliê Arroteia: criar, costurar, transformar.">
 
-  <link rel="icon" type="image/x-icon" href="logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ateliê Arroteia | Moda festa e casual">
+  <meta property="og:description" content="Vestidos de festa e looks casuais feitos sob medida. Chame no WhatsApp.">
+  <meta property="og:image" content="https://ateliearroteia.modafestaecasual.workers.dev/banner1.jpg">
+
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="theme-color" content="#000000">
 
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +35,11 @@
 </a>
 
 
-      <ul class="nav__menu">
+      <button class="nav__toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav__menu" id="menu">
         <li><a href="https://wa.me/5519981510652?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20Arroteia%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">Entre em contato</a></li>
         <li><a href="#clientes">Clientes</a></li>
         <li><a href="#quemsomos">Quem somos</a></li>
@@ -38,19 +48,17 @@
   </header>
 
   <main id="topo">
-
     <!-- ============ INÍCIO ============ -->
     <section class="hero">
   
-      <img class="hero__banner" src="banner1.jpg" alt="banner vestido Ateliê Arroteia">
+      <picture>
+        <source media="(max-width: 760px)" srcset="banner1cel.jpg">
+        <img class="hero__banner" src="banner1.jpg" alt="Duas clientes com vestidos de festa do Ateliê Arroteia">
+      </picture>
 
-      <div class="hero__content">
-        <p class="hero__eyebrow">Moda festa e casual sob medida</p>
-        <h1 class="hero__title gold">Seu look começa com uma conversa</h1>
-        <p class="hero__text">
-          Conta para a gente, qual é a ocasião?
-        </p>
-        <a class="btn btn--solid" href="https://wa.me/5519981510652?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20Arroteia%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+            <div class="hero__content">
+        <h1 class="hero__title gold"></h1>
+        <a class="btn btn--solid" href="https://wa.me/5519981510652?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20Arroteia%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener">ENTRE EM CONTATO</a>
       </div>
 
       
