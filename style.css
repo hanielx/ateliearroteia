@@ -1,0 +1,610 @@
+/* ==========================================================
+   ATELIÊ ARROTEIA
+   Sumário:
+   1. Variáveis
+   2. Base
+   3. Cabeçalho
+   4. Início (hero)
+   5. Seções e títulos
+   6. Botões
+   7. Catálogo (filtros e grade)
+   8. Clientes (galeria)
+   9. O ateliê
+   10. Contato
+   11. Rodapé
+   12. Responsivo
+   ========================================================== */
+
+
+/* ---------- 1. Variáveis ---------- */
+:root {
+  /* Cores */
+  --black: #050505d0;
+  --black-soft: #0e0c08;
+  --gold: #d4a93c;
+  --gold-light: #f1d98a;
+  --gold-dark: #8a6a1fbd;
+  --text: #ffffff;
+  --text-muted: #ffffff;
+  --line: rgba(212, 169, 60, 0.28);
+
+  /* Fontes */
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+
+  /* Medidas */
+  --header-height: 72px;
+  --container: 1180px;
+
+  color-scheme: dark;
+}
+
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* Texto com efeito dourado */
+.gold {
+  background: linear-gradient(
+    100deg,
+    var(--gold-dark),
+    var(--gold-light) 45%,
+    var(--gold) 70%,
+    var(--gold-dark)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+/* ---------- 3. Cabeçalho ---------- */
+ .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.596), transparent);
+}
+
+.header--solid {
+  background: rgba(0, 0, 0, 0.92);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 40px;
+}
+
+.nav__brand {
+ display: flex;
+  align-items: center;
+  gap: 12px;                 /* espaço entre o logo e o nome */
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.nav__brand img {
+  display: block;
+  height: 56px;
+  width: auto;
+  mix-blend-mode: lighten;   /* funde o fundo preto da imagem com a página */
+}
+
+.nav__menu {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+   margin-left: auto;
+}
+
+.nav__menu a {
+  padding: 8px 0;
+  color: var(--text-muted);
+  border-bottom: 1px solid transparent;
+}
+
+.nav__menu a:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+
+/* ---------- 4. Início (hero) ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 120px 6vw 88px;
+  overflow: hidden;
+  text-align: left;
+  background: var(--black);
+}
+
+.hero__banner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;   /* prioriza rosto e tronco */
+  z-index: 1;
+}
+
+/* escurece só a esquerda, para o texto ficar legível */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.952), transparent 75%);
+  z-index: 2;
+}
+
+.hero__logo,
+.hero__text,
+.hero .btn {
+  position: relative;
+  z-index: 3;
+}
+
+.hero__logo { margin: 0 0 8px; }
+.hero__text { margin: 0 0 36px; }
+
+/* celular: foto em cima, texto embaixo */
+@media (max-width: 760px) {
+  .hero {
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+  }
+
+
+  .hero::after {
+    background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.9));
+  }
+
+  .hero__logo,
+  .hero__text {
+    margin-inline: auto;
+  }
+}
+
+
+/* ---------- 5. Seções e títulos ---------- */
+.section {
+  padding: 88px 24px;
+}
+
+.section--alt {
+  background: var(--black-soft);
+  border-block: 1px solid var(--line);
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 12px;
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 5vw, 52px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.15;
+  
+}
+
+.subtitle {
+  color: var(--text-muted);
+  
+}
+
+
+/* ---------- 6. Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 14px 34px;
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.btn--solid {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.btn--solid:hover {
+  background: var(--gold-light);
+}
+
+
+/* ---------- 7. Catálogo ---------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.filters button {
+  padding: 9px 22px;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.filters button[aria-pressed="true"] {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px;
+}
+
+/* Card de peça (usado no catálogo e nas clientes) */
+.item {
+  margin: 0;
+}
+
+.item__photo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 20px;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(160deg, #17120a, #050402);
+  border: 1px solid var(--line);
+  color: var(--gold-dark);
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-style: italic;
+}
+
+.item__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item__info {
+  padding: 14px 2px 0;
+}
+
+.item__name {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.item__meta {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.item__cta {
+  display: inline-block;
+  margin-top: 6px;
+  border-bottom: 1px solid var(--gold-dark);
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+
+/* ---------- 8. Clientes (galeria) ---------- */
+.masonry {
+  columns: 3 240px;
+  column-gap: 24px;
+}
+
+.masonry .item {
+  margin-bottom: 24px;
+  break-inside: avoid;
+}
+
+.masonry .item__photo {
+  aspect-ratio: auto;
+  min-height: 300px;
+}
+
+.masonry .item:nth-child(3n + 2) .item__photo {
+  min-height: 380px;
+}
+
+.masonry .item:nth-child(3n) .item__photo {
+  min-height: 340px;
+}
+
+
+/* ---------- 9. O ateliê ---------- */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.steps {
+  display: grid;
+  gap: 22px;
+}
+
+.steps__item {
+  padding-left: 22px;
+  border-left: 1px solid var(--gold);
+}
+
+.steps__item h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.steps__item p {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+}
+
+
+/* ---------- 10. Contato ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact .subtitle {
+  margin-inline: auto;
+}
+
+.contact__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+
+/* ---------- 11. Rodapé ---------- */
+.footer {
+  padding: 36px 24px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+
+/* ---------- 12. Responsivo ---------- */
+@media (max-width: 760px) {
+  .nav__menu {
+    display: none;
+  }
+
+  .section {
+    padding: 64px 20px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
+}
+
+
+/* ---------- 13. Carrossel de clientes ---------- */
+.carousel {
+  position: relative;
+  margin-top: 36px;
+}
+
+.carousel__track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;            /* esconde a barra de rolagem */
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* 3 fotos visíveis: (100% - 2 espaços) / 3 */
+.carousel__slide {
+  flex: 0 0 calc((100% - 48px) / 3);
+  margin: 0;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  scroll-snap-align: start;
+  background: #0b0905;
+  border: 1px solid var(--line);
+}
+
+.carousel__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold-light);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.carousel__btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+.carousel__btn--prev { left: 12px; }
+.carousel__btn--next { right: 12px; }
+
+/* celular: 1 foto por vez, com um pedaço da próxima à mostra */
+@media (max-width: 760px) {
+  .carousel__slide {
+    flex-basis: 85%;
+  }
+}
+
+
+/* ---------- 14. Banner fino (abaixo de "Quem somos") ---------- */
+.banner-strip {
+  position: relative;
+  height: clamp(200px, 26vw, 340px);   /* altura: mínimo 200px, máximo 340px */
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+}
+
+.banner-strip__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 60%;         /* escolhe qual faixa da foto aparece */
+}
+
+/* leve escurecida nas bordas, combinando com o resto do site */
+.banner-strip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+}
+
+
+/* ---------- 15. Texto do banner principal (hero) ---------- */
+.hero__content {
+  position: relative;
+  z-index: 3;                 /* acima da foto e da camada escura */
+  max-width: 520px;
+}
+
+.hero__eyebrow {
+  margin: 0 0 12px;
+  color: var(--gold-light);
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  margin: 0 0 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 5.5vw, 64px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.hero__content .hero__text {
+  margin: 0 0 28px;
+  font-size: 18px;
+}
+
+.hero__phone {
+  margin: 14px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
